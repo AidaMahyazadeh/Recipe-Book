@@ -1,4 +1,4 @@
 export default interface IIngredient{
-    name : string;
+    name :string;
     amount : number;
 }
