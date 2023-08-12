@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import{ IIngredient }from '../models/ingredient.model';
+import{ IIngredient }from '../shared/models/ingredient.model';
 
 
 @Component({
