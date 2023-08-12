@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent 
 implements OnInit{
-
+loadedFeature :string =''
   ngOnInit(): void {
     
   }
- 
+  onNavigate(feature:string){
+ this.loadedFeature=feature
+  }
 }
