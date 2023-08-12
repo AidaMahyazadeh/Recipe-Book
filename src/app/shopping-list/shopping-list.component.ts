@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import IIngredient from '../models/ingredient.model';
+import{ IIngredient }from '../models/ingredient.model';
 
 
 @Component({
@@ -11,4 +11,8 @@ export class ShoppingListComponent {
   ingredients :IIngredient [] = [
     {name :'apple', amount :10}
   ];
+
+  onIngredientAdded(ingredient :IIngredient){
+    this.ingredients.push(ingredient)
+  }
 }
