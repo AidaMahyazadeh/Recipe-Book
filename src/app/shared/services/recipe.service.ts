@@ -1,7 +1,8 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import IRecipe from '../models/recipe.model';
 import { IIngredient } from '../models/ingredient.model';
 import { ShoppingService } from './shopping.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class RecipeService {
   imagePath :   'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
   ingredients : [{name :'Meat', amount: 1},{name :'French Fries', amount :20}]
 }];
- recipeSelected = new EventEmitter <IRecipe>();
+ recipeSelected = new Subject<IRecipe>();
  
   constructor(private shoppingService :ShoppingService) { }
 
