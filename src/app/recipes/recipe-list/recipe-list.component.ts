@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import IRecipe from 'src/app/shared/models/recipe.model';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent {
-recipes :IRecipe [] = [{name :'test',description:'this is for test',imagePath:'image'}];
-@Output() recipeWasSelected = new EventEmitter<IRecipe>()
+export class RecipeListComponent implements OnInit {
+recipes !:IRecipe [];
 
-onRecipeSelected(recipe :IRecipe) {
-this.recipeWasSelected.emit(recipe)
+constructor (private recipeService :RecipeService){}
+
+ngOnInit(): void {
+  this.recipes = this.recipeService.getRecipes()
 }
 }
