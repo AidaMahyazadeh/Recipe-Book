@@ -25,6 +25,10 @@ ngOnInit(){
     )
 }
 
+onEditItem(index :number){
+this.shoppingService.startedEditing.next(index)
+}
+
 ngOnDestroy(): void {
   this.ingredientChangedSub.unsubscribe();
 }
