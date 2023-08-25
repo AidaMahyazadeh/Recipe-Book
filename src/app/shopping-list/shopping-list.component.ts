@@ -26,7 +26,7 @@ ngOnInit(){
 }
 
 onEditItem(index :number){
-this.shoppingService.startedEditing.next(index)
+this.shoppingService.startedEditing$.next(index)
 }
 
 ngOnDestroy(): void {
