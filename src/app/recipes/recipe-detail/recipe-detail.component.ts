@@ -34,4 +34,8 @@ this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
 onEditRecipe() {
 this.router.navigate(['edit'],{relativeTo : this.activatedRoute})
 }
+
+onDeletRecipe(){
+  this.recipeService.deleteRecipe(this.id);
+}
 }
