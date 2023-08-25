@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import IRecipe from '../models/recipe.model';
-import { IIngredient } from '../models/ingredient.model';
+import { Ingredient } from '../models/ingredient.model';
 import { ShoppingService } from './shopping.service';
 
 
@@ -26,7 +26,7 @@ export class RecipeService {
    return this.recipes[index]
   }
 
-  addIngredientsToShoppingList (ingredients : IIngredient[]){
+  addIngredientsToShoppingList (ingredients : Ingredient[]){
     this.shoppingService.addIngredients(ingredients)
   }
 }

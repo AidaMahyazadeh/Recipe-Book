@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { IIngredient } from '../models/ingredient.model';
+import { Ingredient } from '../models/ingredient.model';
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingService {
- private ingredients :IIngredient [] = [
+ private ingredients :Ingredient [] = [
     {name :'apple', amount :10}
   ];
-  ingredientChanged = new Subject <IIngredient[]>();
+  ingredientChanged = new Subject <Ingredient[]>();
   constructor() { }
 
   getIngredients (){
     return this.ingredients.slice();
   }
 
-  addIngredient (ingredient :IIngredient){
+  addIngredient (ingredient :Ingredient){
     this.ingredients.push(ingredient);
     this.ingredientChanged.next(this.ingredients.slice());
   }
 
-  addIngredients (ingredients :IIngredient[]){
+  addIngredients (ingredients :Ingredient[]){
     this.ingredients.push (...ingredients);
     this.ingredientChanged.next(this.ingredients.slice());
     }
