@@ -28,5 +28,9 @@ export class ShoppingService {
     this.ingredientChanged.next(this.ingredients.slice());
     }
 
+    getIngredientById(index :number){
+      return this.ingredients[index]
+    }
+
   }
 
