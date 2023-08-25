@@ -10,7 +10,7 @@ export class ShoppingService {
     {name :'apple', amount :10}
   ];
   ingredientChanged = new Subject <Ingredient[]>();
-  startedEditing = new Subject<number>();
+  startedEditing$ = new Subject<number>();
   
   constructor() { }
 
