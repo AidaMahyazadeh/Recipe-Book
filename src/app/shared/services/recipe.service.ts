@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import IRecipe from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
 import { ShoppingService } from './shopping.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +16,8 @@ export class RecipeService {
   imagePath :   'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
   ingredients : [{name :'Meat', amount: 1},{name :'French Fries', amount :20}]
 }];
+
+recipeChanged$ = new Subject<IRecipe[]>();
  
   constructor(private shoppingService :ShoppingService) { }
 
@@ -31,10 +34,17 @@ export class RecipeService {
   }
 
   addRecipe(recipe :IRecipe){
-    this.recipes.push(recipe)
+    this.recipes.push(recipe);
+    this.recipeChanged$.next(this.recipes.slice());
   }
 
   updateRecipe(index :number,newRecipe:IRecipe){
     this.recipes[index] = newRecipe;
+    this.recipeChanged$.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index :number){
+    this.recipes.splice(index,1);
+    this.recipeChanged$.next(this.recipes);
   }
 }
