@@ -29,4 +29,12 @@ export class RecipeService {
   addIngredientsToShoppingList (ingredients : Ingredient[]){
     this.shoppingService.addIngredients(ingredients)
   }
+
+  addRecipe(recipe :IRecipe){
+    this.recipes.push(recipe)
+  }
+
+  updateRecipe(index :number,newRecipe:IRecipe){
+    this.recipes[index] = newRecipe;
+  }
 }
