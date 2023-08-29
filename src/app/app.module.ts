@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppongListModule } from './shopping-list/shopping-list.module';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -17,7 +18,8 @@ import { ShoppongListModule } from './shopping-list/shopping-list.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective
+    DropdownDirective,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
