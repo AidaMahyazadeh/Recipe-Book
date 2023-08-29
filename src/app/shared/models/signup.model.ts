@@ -1,5 +1,4 @@
-export interface ISignup {
-    email :string;
-    password :string;
-    returnSecureToken :true
+export  interface ISignup{
+    email :string,
+    password :string,
 }
