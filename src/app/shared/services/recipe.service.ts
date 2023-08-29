@@ -9,17 +9,24 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipeService {
- private recipes :IRecipe [] = [{name :'Big Fat Burger',description:'What else you need to say?',imagePath:'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',ingredients:[{name :'Meat', amount: 1},{name :'Cheese', amount :2}]},
-{
-  name :'Tasty Schnitzel',
-  description :  'A super-tasty Schnitzel - just awesome!',
-  imagePath :   'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
-  ingredients : [{name :'Meat', amount: 1},{name :'French Fries', amount :20}]
-}];
+//  private recipes :IRecipe [] = [{name :'Big Fat Burger',description:'What else you need to say?',imagePath:'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',ingredients:[{name :'Meat', amount: 1},{name :'Cheese', amount :2}]},
+// {
+//   name :'Tasty Schnitzel',
+//   description :  'A super-tasty Schnitzel - just awesome!',
+//   imagePath :   'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+//   ingredients : [{name :'Meat', amount: 1},{name :'French Fries', amount :20}]
+// }];
+
+private recipes :IRecipe[]=[];
 
 recipeChanged$ = new Subject<IRecipe[]>();
  
   constructor(private shoppingService :ShoppingService) { }
+
+  setRecipes(recipes:IRecipe[]){
+    this.recipes= recipes;
+    this.recipeChanged$.next(this.recipes.slice());
+  }
 
   getRecipes () {
     return this.recipes.slice()
