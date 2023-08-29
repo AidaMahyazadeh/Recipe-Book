@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecipeService } from './recipe.service';
+import IRecipe from '../models/recipe.model';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +24,20 @@ storeRecipes(){
     }
   )
 }
+
+fetchRecipes(){
+ return this.http.get< IRecipe[]
+  >(this.url)
+  .pipe(
+    map(recipes =>{
+      return recipes.map(recipe =>{
+        return {...recipe,ingredients : recipe.ingredients ?recipe.ingredients :[]}
+      })
+      }),
+      tap( recipes =>{
+        this.recipeService.setRecipes(recipes)
+      }) 
+  )
+    }
 
 }
