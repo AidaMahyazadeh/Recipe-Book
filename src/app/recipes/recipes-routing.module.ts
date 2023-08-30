@@ -5,9 +5,10 @@ import { RecipeStartComponent } from "./recipe-start/recipe-start.component";
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { RecipeDetailComponent } from "./recipe-detail/recipe-detail.component";
 import { RecipesResolverService } from "../shared/services/recipes-resolver.service";
+import { authGuard } from "../shared/services/auth.guard";
 
 const routes: Routes = [
-  {path : 'recipes' , component : RecipesComponent , children : [
+  {path : 'recipes' , component : RecipesComponent , canActivate :[authGuard],children : [
     {path :'' , component : RecipeStartComponent},
     {path : 'new' , component :RecipeEditComponent},
     {path :':id' , component : RecipeDetailComponent, resolve :[RecipesResolverService]},
