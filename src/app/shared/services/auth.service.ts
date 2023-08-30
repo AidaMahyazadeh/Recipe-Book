@@ -14,6 +14,7 @@ AIzaSyB5DPFXGWG8NitlmtRRXpR3Y8sha9cwdKQ`;
 urlLogin ='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5DPFXGWG8NitlmtRRXpR3Y8sha9cwdKQ';
 
 user$ = new BehaviorSubject <User>(null);
+private tokenExpirationTimer :any;
 
   constructor(
     private http :HttpClient,
@@ -42,6 +43,21 @@ user$ = new BehaviorSubject <User>(null);
      )
   }
 
+  autoLogin(){
+   const userData :User=JSON.parse(localStorage.getItem('userData'));
+   if(!userData){
+    return;
+   }
+   const loadedUser = new User(userData.email,userData.id,userData.token,new Date(userData.tokenExpirstionDate));
+    
+   if(loadedUser.token){
+    const expirationDuration =new Date(userData.tokenExpirstionDate).getTime()- new Date().getTime();
+    this.autoLogout(expirationDuration);
+    this.user$.next(loadedUser);
+   }
+
+  }
+
   private handleError(errorRespone :HttpErrorResponse){
     let errorMessage = 'An unknown error occured!'
     if(!errorRespone.error || !errorRespone.error.error){
@@ -63,12 +79,25 @@ user$ = new BehaviorSubject <User>(null);
   private handleAuthentication(email:string,userId :string,token :string,expiresIn :number){
     const expirationDate = new Date(new Date().getTime()+ (expiresIn)*1000);
     const user = new User (email,userId,token,expirationDate)
-    this.user$.next(user)
+    this.user$.next(user);
+    this.autoLogout(expiresIn*1000);
+    localStorage.setItem('userData',JSON.stringify(user));
   }
 
   logout(){
     this.user$.next(null);
     this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if(this.tokenExpirationTimer){
+     clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer =null;
+  }
+
+  autoLogout(expirationDuration :number){
+    this.tokenExpirationTimer=setTimeout(()=>{
+      this.logout();
+    },expirationDuration)
   }
   }
 
