@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecipeService } from './recipe.service';
 import IRecipe from '../models/recipe.model';
-import { map, tap } from 'rxjs';
+import { exhaustMap, map, take, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ url ='https://recipe-app-99d4d-default-rtdb.europe-west1.firebasedatabase.app/re
 
   constructor(
     private http :HttpClient,
-    private recipeService :RecipeService
+    private recipeService :RecipeService,
+    private authService :AuthService
     ) { }
  
 storeRecipes(){
@@ -26,9 +28,8 @@ storeRecipes(){
 }
 
 fetchRecipes(){
- return this.http.get< IRecipe[]
-  >(this.url)
-  .pipe(
+  return this.http.get< IRecipe[]>(this.url)
+   .pipe(
     map(recipes =>{
       return recipes.map(recipe =>{
         return {...recipe,ingredients : recipe.ingredients ?recipe.ingredients :[]}
@@ -37,7 +38,8 @@ fetchRecipes(){
       tap( recipes =>{
         this.recipeService.setRecipes(recipes)
       }) 
-  )
+    )
+  
     }
 
 }
