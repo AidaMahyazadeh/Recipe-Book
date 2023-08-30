@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthResponseData } from '../models/authResponseData.model';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,12 @@ urlSignup=`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=
 AIzaSyB5DPFXGWG8NitlmtRRXpR3Y8sha9cwdKQ`;
 urlLogin ='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5DPFXGWG8NitlmtRRXpR3Y8sha9cwdKQ';
 
-user$ = new Subject <User>();
+user$ = new BehaviorSubject <User>(null);
 
-  constructor(private http :HttpClient) { }
+  constructor(
+    private http :HttpClient,
+    private router :Router
+    ) { }
 
   signup(email: string, password: string){
    return this.http.post<IAuthResponseData
@@ -60,6 +64,11 @@ user$ = new Subject <User>();
     const expirationDate = new Date(new Date().getTime()+ (expiresIn)*1000);
     const user = new User (email,userId,token,expirationDate)
     this.user$.next(user)
+  }
+
+  logout(){
+    this.user$.next(null);
+    this.router.navigate(['/auth']);
   }
   }
 
