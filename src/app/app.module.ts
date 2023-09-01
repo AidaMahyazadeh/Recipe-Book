@@ -8,11 +8,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
 import { DropdownDirective } from './shared/directives/dropdown.directive';
-import { RecipesModule } from './recipes/recipes.module';
-import { ShoppongListModule } from './shopping-list/shopping-list.module';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { AuthInterceptor } from './shared/services/auth.interceptor';
+import { AlertComponent } from './shared/components/alert/alert.component';
 
 
 
@@ -22,16 +21,15 @@ import { AuthInterceptor } from './shared/services/auth.interceptor';
     HeaderComponent,
     DropdownDirective,
     AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    RecipesModule,
-    ShoppongListModule
+    AppRoutingModule
   ],
   providers: [
     {
