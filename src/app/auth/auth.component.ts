@@ -54,4 +54,8 @@ onSubmit(form ){
    
 form.reset()
 }
+
+onHandleError(){
+  this.error= null;
+}
 }
